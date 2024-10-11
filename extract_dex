@@ -1,0 +1,23 @@
+import zipfile
+import os
+
+def extract_dex_from_apk(apk_path, output_dir):
+    # Asegúrate de que el directorio de salida existe
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Abre el archivo APK como un ZIP
+    with zipfile.ZipFile(apk_path, 'r') as zip_ref:
+        # Lista todos los archivos en el APK
+        for file_info in zip_ref.infolist():
+            # Verifica si el archivo es un .dex
+            if file_info.filename.endswith('.dex'):
+                # Extrae el archivo .dex al directorio de salida
+                zip_ref.extract(file_info, output_dir)
+                print(f'Extraído: {file_info.filename}')
+
+# Ruta al archivo APK y al directorio de salida
+apk_path = 'ruta/al/archivo.apk'  # Cambia esto a la ruta de tu APK
+output_dir = 'ruta/de/salida'  # Cambia esto a donde deseas guardar los archivos .dex
+
+# Llama a la función para extraer los archivos .dex
+extract_dex_from_apk(apk_path, output_dir)
